@@ -1,114 +1,36 @@
-//package stepdefinitions;
-//
-//import io.cucumber.java.en.*;
-//import org.openqa.selenium.WebDriver;
-//import org.openqa.selenium.chrome.ChromeDriver;
-//import io.github.bonigarcia.wdm.WebDriverManager;
-//
-//import static org.junit.Assert.*;
-//
-//public class AmazonSteps {
-//
-//    WebDriver driver;
-//
-//    @Given("I open the browser")
-//    public void openBrowser() {
-//        WebDriverManager.chromedriver().setup();
-//        driver = new ChromeDriver();
-//        driver.manage().window().maximize();
-//    }
-//
-//    @When("I navigate to {string}")
-//    public void navigateTo(String url) {
-//        driver.get(url);
-//    }
-//
-//    @Then("I should see Amazon homepage")
-//    public void verifyAmazonHomepage() {
-//        String title = driver.getTitle();
-//        System.out.println("Page Title: " + title);
-//        assertTrue(title.contains("Amazon"));
-//        driver.quit();
-//    }
-//}
-
-package stepdefinitions;
-
-import io.cucumber.java.en.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.By;
-
-import static org.junit.Assert.*;
+import org.junit.Assert;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.When;
+import io.cucumber.java.en.Then;
 
 public class AmazonSteps {
 
     WebDriver driver;
 
-    // Open Browser
+    // Step 1: Open browser
     @Given("I open the browser")
-    public void openBrowser() {
-        WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
+    public void i_open_the_browser() {
+        driver = new ChromeDriver();   // Chrome browser open
+        driver.manage().window().maximize(); // maximize window
     }
 
-    // Navigate
+    // Step 2: Navigate to URL
     @When("I navigate to {string}")
-    public void navigateTo(String url) {
-        driver.get(url);
+    public void i_navigate_to_url(String url) {
+        driver.get(url);   // open given URL
     }
 
-    // Verify homepage
+    // Step 3: Verify homepage
     @Then("I should see Amazon homepage")
-    public void verifyHomepage() {
-        String title = driver.getTitle();
-        System.out.println("Title: " + title);
-        assertTrue(title.contains("Amazon"));
-        driver.quit();
-    }
+    public void i_should_see_amazon_homepage() {
+        String title = driver.getTitle();   // get page title
+        System.out.println("Page Title: " + title);
 
-    // Verify title
-    @Then("page title should contain {string}")
-    public void verifyTitle(String expectedText) {
-        String title = driver.getTitle();
-        System.out.println("Title: " + title);
-        assertTrue(title.contains(expectedText));
-        driver.quit();
-    }
+        // Check title contains "Amazon"
+        Assert.assertTrue(title.contains("Amazon"));
 
-    // Verify search box
-    @Then("search box should be visible")
-    public void verifySearchBox() {
-        boolean isDisplayed = driver.findElement(By.id("twotabsearchtextbox")).isDisplayed();
-        System.out.println("Search box visible: " + isDisplayed);
-        assertTrue(isDisplayed);
-        driver.quit();
-    }
-
-    // Search product
-    @When("I search for {string}")
-    public void searchProduct(String product) {
-        driver.findElement(By.id("twotabsearchtextbox")).sendKeys(product);
-        driver.findElement(By.id("nav-search-submit-button")).click();
-    }
-
-    // Verify results
-    @Then("search results should be displayed")
-    public void verifyResults() {
-        boolean results = driver.findElements(By.cssSelector("div.s-main-slot")).size() > 0;
-        System.out.println("Results found: " + results);
-        assertTrue(results);
-        driver.quit();
-    }
-
-    // Verify URL
-    @Then("URL should contain {string}")
-    public void verifyURL(String expected) {
-        String url = driver.getCurrentUrl();
-        System.out.println("Current URL: " + url);
-        assertTrue(url.contains(expected));
-        driver.quit();
+        driver.quit(); // close browser
     }
 }
