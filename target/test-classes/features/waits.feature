@@ -76,7 +76,7 @@ Scenario: Wait for cart page to load
   Scenario: Add to cart confirmation not displayed
   Given I open Amazon homepage
   When I add product to cart
-  Then I wait for confirmation message for 5 seconds
+  Then I wait for confirmation message for 10 seconds
   And I should handle timeout if message not displayed
 
 
